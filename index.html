@@ -16,7 +16,14 @@
           <span class="brand-mark" aria-hidden="true">☾</span>
           <span>晚风不记得</span>
         </a>
-        <span class="top-note">A QUIET PLACE TO LET GO</span>
+        <div class="topbar-actions">
+          <span class="top-note">A QUIET PLACE TO LET GO</span>
+          <button class="music-toggle" id="music-toggle" type="button" aria-pressed="false" aria-label="播放背景音乐">
+            <span class="music-bars" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span class="music-label" id="music-label">夜曲</span>
+          </button>
+          <span class="visually-hidden" id="music-status" aria-live="polite"></span>
+        </div>
       </header>
 
       <div class="layout">
@@ -84,6 +91,7 @@
           <div class="privacy">
             <p><strong>文字只存在于当前页面内存中。</strong>不使用 Cookie、localStorage、IndexedDB、分析脚本或第三方 API，也没有文字提交接口。</p>
             <p>点击「交给晚风」会立即清空输入框。屏幕上短暂出现的字迹只用于散去动画，结束后会从页面删除。</p>
+            <p>背景音乐由浏览器本地实时生成，不加载外部音频、不录音，也不会保存播放状态。</p>
             <p>刷新或离开页面同样会清空。网页无法阻止输入法、浏览器扩展、系统截图或崩溃恢复机制记录内容。</p>
           </div>
         </details>

@@ -1,4 +1,5 @@
 import './styles.css';
+import { createMusicExperience } from './features/music.js';
 import { createPrivacyDisclosure } from './features/privacy.js';
 import { createReleaseExperience } from './features/release.js';
 
@@ -12,3 +13,9 @@ createReleaseExperience({
 });
 
 createPrivacyDisclosure(document.querySelector('#privacy-disclosure'));
+
+createMusicExperience({
+  button: document.querySelector('#music-toggle'),
+  label: document.querySelector('#music-label'),
+  status: document.querySelector('#music-status'),
+});

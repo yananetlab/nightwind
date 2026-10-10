@@ -78,6 +78,12 @@ summary {
   gap: 20px;
 }
 
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
 .brand {
   display: inline-flex;
   align-items: center;
@@ -106,6 +112,71 @@ summary {
   color: #8c9db8;
   font-size: 12px;
   letter-spacing: 1px;
+}
+
+.music-toggle {
+  display: inline-flex;
+  min-width: 74px;
+  min-height: 42px;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 0 13px;
+  cursor: pointer;
+  touch-action: manipulation;
+  color: #b9c7d9;
+  background: rgba(224, 234, 246, 0.055);
+  border: 1px solid rgba(202, 218, 238, 0.17);
+  border-radius: 999px;
+  font-size: 12px;
+  letter-spacing: 1px;
+  transition: color 200ms, background 200ms, border-color 200ms, transform 200ms;
+}
+
+.music-toggle:active {
+  transform: scale(0.97);
+}
+
+.music-toggle.is-playing {
+  color: #eadfca;
+  background: rgba(231, 218, 190, 0.11);
+  border-color: rgba(231, 218, 190, 0.34);
+}
+
+.music-toggle:focus-visible {
+  outline: 2px solid #e5dbbd;
+  outline-offset: 3px;
+}
+
+.music-bars {
+  display: inline-flex;
+  height: 14px;
+  align-items: center;
+  gap: 2px;
+}
+
+.music-bars i {
+  display: block;
+  width: 2px;
+  height: 5px;
+  background: currentColor;
+  border-radius: 2px;
+  animation: music-bar 1.2s ease-in-out infinite alternate;
+  animation-play-state: paused;
+}
+
+.music-bars i:nth-child(2) {
+  height: 10px;
+  animation-delay: -0.45s;
+}
+
+.music-bars i:nth-child(3) {
+  height: 7px;
+  animation-delay: -0.8s;
+}
+
+.music-toggle.is-playing .music-bars i {
+  animation-play-state: running;
 }
 
 .layout {
@@ -567,6 +638,11 @@ summary:focus-visible {
   100% { opacity: 0; filter: blur(3px); transform: translate3d(var(--wind-x), var(--wind-y), 0) rotate(var(--spin)); }
 }
 
+@keyframes music-bar {
+  from { transform: scaleY(0.45); }
+  to { transform: scaleY(1); }
+}
+
 @media (min-width: 461px) {
   .page {
     padding-right: 23px;
@@ -694,6 +770,12 @@ summary:focus-visible {
   .release:hover:not(:disabled) {
     background: #f1e7d5;
     transform: translateY(-2px);
+  }
+
+  .music-toggle:hover:not(:disabled) {
+    color: #eadfca;
+    background: rgba(231, 218, 190, 0.09);
+    border-color: rgba(231, 218, 190, 0.28);
   }
 
   .hint {
