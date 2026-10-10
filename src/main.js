@@ -18,4 +18,5 @@ createMusicExperience({
   button: document.querySelector('#music-toggle'),
   label: document.querySelector('#music-label'),
   status: document.querySelector('#music-status'),
+  autostartTarget: document.querySelector('#thoughts'),
 });

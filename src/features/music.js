@@ -45,7 +45,7 @@ function createWind(context, destination) {
   filter.type = 'bandpass';
   filter.frequency.value = 620;
   filter.Q.value = 0.35;
-  gain.gain.value = 0.008;
+  gain.gain.value = 0.012;
 
   source.connect(filter).connect(gain).connect(destination);
   source.start();
@@ -53,7 +53,7 @@ function createWind(context, destination) {
   return source;
 }
 
-export function createMusicExperience({ button, label, status }) {
+export function createMusicExperience({ button, label, status, autostartTarget }) {
   if (!button || !label || !status) return;
 
   const AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -67,12 +67,13 @@ export function createMusicExperience({ button, label, status }) {
   let melodyTimer;
   let suspendTimer;
   let isPlaying = false;
+  let hasMadePlaybackChoice = false;
 
   function updateControl(message) {
     button.classList.toggle('is-playing', isPlaying);
     button.setAttribute('aria-pressed', String(isPlaying));
     button.setAttribute('aria-label', isPlaying ? '暂停背景音乐' : '播放背景音乐');
-    label.textContent = isPlaying ? '暂停' : '夜曲';
+    label.textContent = isPlaying ? '暂停音乐' : '播放音乐';
     status.textContent = message;
   }
 
@@ -99,7 +100,7 @@ export function createMusicExperience({ button, label, status }) {
     oscillator.frequency.value = MELODY[melodyIndex % MELODY.length];
     oscillator.detune.value = melodyIndex % 2 ? 4 : -4;
     gain.gain.setValueAtTime(0.0001, now);
-    gain.gain.exponentialRampToValueAtTime(0.032, now + 0.05);
+    gain.gain.exponentialRampToValueAtTime(0.065, now + 0.05);
     gain.gain.exponentialRampToValueAtTime(0.0001, now + 3.4);
 
     if (panner) {
@@ -134,9 +135,9 @@ export function createMusicExperience({ button, label, status }) {
     const dry = context.createGain();
 
     master.gain.value = 0.0001;
-    padBus.gain.value = 0.11;
+    padBus.gain.value = 0.2;
     filter.type = 'lowpass';
-    filter.frequency.value = 1150;
+    filter.frequency.value = 1450;
     filter.Q.value = 0.45;
     wet.gain.value = 0.24;
     dry.gain.value = 0.82;
@@ -152,7 +153,7 @@ export function createMusicExperience({ button, label, status }) {
       oscillator.type = index % 2 ? 'sine' : 'triangle';
       oscillator.frequency.value = frequency;
       oscillator.detune.value = [-6, 4, -3, 7][index];
-      gain.gain.value = [0.14, 0.11, 0.075, 0.05][index];
+      gain.gain.value = [0.17, 0.14, 0.1, 0.07][index];
       oscillator.connect(gain).connect(padBus);
       oscillator.start();
       return { oscillator, gain };
@@ -171,7 +172,7 @@ export function createMusicExperience({ button, label, status }) {
     const now = context.currentTime;
     master.gain.cancelScheduledValues(now);
     master.gain.setValueAtTime(Math.max(master.gain.value, 0.0001), now);
-    master.gain.exponentialRampToValueAtTime(0.12, now + 1.8);
+    master.gain.exponentialRampToValueAtTime(0.22, now + 1.4);
     isPlaying = true;
     updateControl('背景音乐已播放');
   }
@@ -188,14 +189,31 @@ export function createMusicExperience({ button, label, status }) {
     updateControl('背景音乐已暂停');
   }
 
+  function removeAutostartListeners() {
+    autostartTarget?.removeEventListener('pointerdown', startWithWriting);
+    autostartTarget?.removeEventListener('keydown', startWithWriting);
+  }
+
+  function startWithWriting() {
+    if (hasMadePlaybackChoice) return;
+    hasMadePlaybackChoice = true;
+    removeAutostartListeners();
+    start().catch(() => {
+      isPlaying = false;
+      updateControl('背景音乐启动失败，请点击播放音乐重试');
+    });
+  }
+
   if (!AudioContext) {
     button.disabled = true;
     button.setAttribute('aria-label', '当前浏览器不支持背景音乐');
-    label.textContent = '不可用';
+    label.textContent = '音乐不可用';
     return;
   }
 
   button.addEventListener('click', async () => {
+    hasMadePlaybackChoice = true;
+    removeAutostartListeners();
     try {
       if (isPlaying) pause();
       else await start();
@@ -204,6 +222,9 @@ export function createMusicExperience({ button, label, status }) {
       updateControl('背景音乐启动失败，请再次尝试');
     }
   });
+
+  autostartTarget?.addEventListener('pointerdown', startWithWriting);
+  autostartTarget?.addEventListener('keydown', startWithWriting);
 
   document.addEventListener('visibilitychange', async () => {
     if (!context) return;
