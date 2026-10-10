@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#101b2d" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="description" content="一个不登录、不保存、不上传的深夜碎碎念角落。把心事写给晚风，写完就消失。" />
+    <link rel="icon" href="/nightwind/favicon.svg" type="image/svg+xml" />
+    <title>晚风不记得 · 写完，就让它散了</title>
+  </head>
+  <body>
+    <main class="page">
+      <header class="topbar">
+        <a class="brand" href="/nightwind/" aria-label="晚风不记得首页">
+          <span class="brand-mark" aria-hidden="true">☾</span>
+          <span>晚风不记得</span>
+        </a>
+        <span class="top-note">A QUIET PLACE TO LET GO</span>
+      </header>
+
+      <div class="layout">
+        <section class="editor" aria-labelledby="headline">
+          <div class="intro">
+            <p class="eyebrow">给深夜留一点空白</p>
+            <h1 id="headline">有些话，<br />说给晚风就好。</h1>
+            <p class="sub">不用整理思绪，也不用解释。<br />写下来就好，风会带走它。</p>
+          </div>
+
+          <div class="paper" id="paper">
+            <div class="paper-top">
+              <span>一张不会被收藏的纸</span>
+              <span class="dots" aria-hidden="true">···</span>
+            </div>
+            <label for="thoughts" class="visually-hidden">此刻想说的话</label>
+            <textarea
+              id="thoughts"
+              placeholder="今晚，我想说……"
+              spellcheck="false"
+              autocapitalize="off"
+              autocomplete="off"
+              autocorrect="off"
+              maxlength="25000"
+              aria-describedby="paper-note"
+            ></textarea>
+            <div class="wind-letters" id="wind-letters" aria-hidden="true"></div>
+            <div class="paper-foot" id="paper-note">只在此刻存在。交给风后，不留下任何记录。</div>
+          </div>
+
+          <div class="actions">
+            <button class="release" id="release" type="button" disabled>
+              <span>交给晚风</span>
+              <span class="button-icon" aria-hidden="true">↗</span>
+            </button>
+            <span class="hint">也可以按 Ctrl / ⌘ + Enter</span>
+          </div>
+          <div class="status" id="status" role="status" aria-live="polite"></div>
+        </section>
+
+        <div class="scene" id="scene" role="img" aria-label="安静的山峦、湖面与一轮柔和的月亮">
+          <div class="moon-halo"></div>
+          <div class="moon"></div>
+          <i class="star star-a"></i>
+          <i class="star star-b"></i>
+          <i class="star star-c"></i>
+          <i class="star star-d"></i>
+          <i class="star star-e"></i>
+          <div class="landscape">
+            <div class="hill hill-back"></div>
+            <div class="hill hill-front"></div>
+            <div class="water"></div>
+          </div>
+          <div class="wind"></div>
+          <div class="wind"></div>
+          <div class="wind"></div>
+          <div class="scene-caption">夜很长，你不用急。</div>
+        </div>
+      </div>
+
+      <footer class="footer">
+        <span>不登录 · 不存储 · 不上传 · 没有历史记录</span>
+        <details class="privacy-disclosure" id="privacy-disclosure">
+          <summary>关于隐私与消失 ↗</summary>
+          <div class="privacy">
+            <p><strong>文字只存在于当前页面内存中。</strong>不使用 Cookie、localStorage、IndexedDB、分析脚本或第三方 API，也没有文字提交接口。</p>
+            <p>点击「交给晚风」会立即清空输入框。屏幕上短暂出现的字迹只用于散去动画，结束后会从页面删除。</p>
+            <p>刷新或离开页面同样会清空。网页无法阻止输入法、浏览器扩展、系统截图或崩溃恢复机制记录内容。</p>
+          </div>
+        </details>
+      </footer>
+    </main>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
