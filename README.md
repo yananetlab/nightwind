@@ -7,6 +7,6 @@
 - 背景音乐由浏览器本地生成，不加载外部音频或录音
 - 受浏览器限制，点击输入框或“播放音乐”后开始播放
 
-本地开发：`npm install && npm run dev`  
-生产构建：`npm run build`  
-在线体验：<https://yananetlab.github.io/nightwind/>
+- 本地开发：`npm install && npm run dev`
+- 生产构建：`npm run build`
+- 在线体验：<https://yananetlab.github.io/nightwind/>
